@@ -33,6 +33,26 @@
 %>
 
 <%@ include file="include/header.jsp" %>
+
+
+<%--
 <h1> <%= userName %> 님 안녕하세요~~</h1>
+--%>
+
+<%--
+    서버에서 Model이나 RedirectAttributes에 담아 놓은 데이터는
+    ${requestScope.aaaa} 로 참조가능하고 requestScope는 생략가능
+
+    ${}
+--%>
+<c:if test="${login == null}">
+    <h1>방문자님 안농하세욤~!~!~!~!~!</h1>
+</c:if>
+
+<c:if test="${login != null}">
+    <h1>${login.nickName}(${login.account})님 ㅎㅇ</h1>
+</c:if>
+
+<a href="/members/sign-out">로그아웃</a>
 </body>
 </html>
