@@ -82,7 +82,7 @@ public class MemberService {
                 .account(member.getAccount())
                 .email(member.getEmail())
                 .nickName(member.getName())
-                .auth(member.getAuth().toString())
+                .auth(member.getAuth().name())
                 .build();
 
         // 세션에 로그인한 회원의 정보 저장
