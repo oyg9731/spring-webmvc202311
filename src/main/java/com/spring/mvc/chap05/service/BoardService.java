@@ -6,9 +6,11 @@ import com.spring.mvc.chap05.dto.response.BoardListResponseDTO;
 import com.spring.mvc.chap05.dto.request.BoardWriteRequestDTO;
 import com.spring.mvc.chap05.entity.Board;
 import com.spring.mvc.chap05.repository.BoardMapper;
+import com.spring.mvc.util.LoginUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,9 +31,10 @@ public class BoardService {
     }
 
     // 글 쓰기 중간처리
-    public void register(BoardWriteRequestDTO dto) {
+    public void register(BoardWriteRequestDTO dto, HttpSession session) {
         // dto 를 엔터티로 변환
         Board board = new Board(dto);
+        board.setAccount(LoginUtils.getCurrentLoginMemberAccount(session));
         boardRepository.save(board);
     }
 
