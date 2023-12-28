@@ -12,8 +12,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.WebUtils;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -120,4 +122,27 @@ public class MemberService {
         session.setMaxInactiveInterval(60 * 60); // 1시간
     }
 
+    public void autoLoginClear(HttpServletRequest request, HttpServletResponse response) {
+
+        // 1. 자동로그인 쿠키를 가져온다
+        Cookie c = WebUtils.getCookie(request, AUTO_LOGIN_COOKIE);
+
+        // 2. 쿠키를 삭제한다
+        // -> 쿠키의 수명을 0초로 설정하여 다시 클라이언트에 전송
+        if (c != null){
+            c.setMaxAge(0);
+            c.setPath("/");
+            response.addCookie(c);
+
+            //          3. DB에서도 세션아이디와 만료시간을 제거한다.
+            memberMapper.saveAutoLogin(
+                    AutoLoginDTO.builder()
+                            .sessionId("none")
+                            .limitTime(LocalDateTime.now())
+                            .account(getCurrentLoginMemberAccount(request.getSession()))
+                            .build()
+            );
+        }
+
+    }
 }
