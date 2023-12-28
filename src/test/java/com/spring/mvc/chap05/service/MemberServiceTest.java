@@ -44,7 +44,7 @@ class MemberServiceTest {
                 .password("kkk1234!")
                 .build();
         //when
-        LoginResult result = memberService.authenticate(dto);
+        LoginResult result = memberService.authenticate(dto, null, null);
 
         //then
         assertEquals(SUCCESS, result);
