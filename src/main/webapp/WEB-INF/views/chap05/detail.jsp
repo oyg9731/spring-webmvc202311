@@ -416,7 +416,6 @@
         .then(responseData => {
           // console.log(responseData);
           // 입력창 비우고 새로운 목록 리렌더링
-          $replyWriter.value = '';
           $replyText.value = '';
 
           fetchGetReplies(responseData.pageInfo.finalPage);
