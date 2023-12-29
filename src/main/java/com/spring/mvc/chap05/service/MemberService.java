@@ -3,6 +3,7 @@ package com.spring.mvc.chap05.service;
 import com.spring.mvc.chap05.dto.request.AutoLoginDTO;
 import com.spring.mvc.chap05.dto.request.LoginRequestDTO;
 import com.spring.mvc.chap05.dto.request.SignUpRequestDTO;
+
 import com.spring.mvc.chap05.dto.response.LoginUserResponseDTO;
 import com.spring.mvc.chap05.entity.Member;
 import com.spring.mvc.chap05.repository.MemberMapper;
