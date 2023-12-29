@@ -170,8 +170,6 @@
                   checkResultList[0] = true;
                 }
               });
-
-
     }
   };
 
