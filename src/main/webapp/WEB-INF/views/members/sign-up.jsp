@@ -13,6 +13,33 @@
       margin-top: 200px;
       margin-bottom: 200px;
     }
+
+
+    .profile {
+      margin-bottom: 70px;
+      text-align: center;
+    }
+    .profile label {
+      font-weight: 700;
+      font-size: 1.2em;
+      cursor: pointer;
+      color: rgb(140, 217, 248);
+    }
+    .profile .thumbnail-box {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin: 30px auto 10px;
+      cursor: pointer;
+    }
+
+    .profile .thumbnail-box img {
+      width: 200px;
+      height: 200px;
+    }
+
+
   </style>
 
 </head>
@@ -33,6 +60,21 @@
           <form action="/members/sign-up" name="signup" id="signUpForm" method="post"
                 style="margin-bottom: 0;">
 
+            <div class="profile">
+              <div class="thumbnail-box">
+                <img src="/assets/img/image-add.png" alt="프로필 썸네일">
+              </div>
+
+              <label>프로필 이미지 추가</label>
+
+              <input
+                      type="file"
+                      id="profile-img"
+                      accept="image/*"
+                      style="display: none;"
+                      name="profileImage"
+              >
+            </div>
 
             <table style="cellpadding: 0; cellspacing: 0; margin: 0 auto; width: 100%">
               <tr>
@@ -170,6 +212,8 @@
                   checkResultList[0] = true;
                 }
               });
+
+
     }
   };
 
@@ -323,6 +367,35 @@
     }
   };
 
+
+  // 프로필 업로드 관련 스크립트
+  const $profile = document.querySelector('.profile');
+  const $fileInput = document.getElementById('profile-img');
+
+  $profile.onclick = e => {
+    $fileInput.click();
+  };
+
+  // 프로필 사진 선택시 썸네일 보여주기
+  $fileInput.onchange = e => {
+    // 사용자가 첨부한 파일 데이터 읽기
+    const fileData = $fileInput.files[0];
+    console.log(fileData);
+
+    // 첨부파일의 바이트데이터를 읽는 객체를 생성
+    const reader = new FileReader();
+
+    // 파일의 바이트데이터를 읽어서 img태그의 src속성에 넣으려면
+    // URL형태로 파일을 읽어야하는데 그거를 처리하는 함수
+    reader.readAsDataURL(fileData);
+
+    // 첨부파일이 등록되는 순간 img태그에 이미지를 세팅
+    reader.onloadend = e => {
+      const $img = document.querySelector('.thumbnail-box img');
+      $img.setAttribute('src', reader.result);
+    };
+
+  };
 
 </script>
 
