@@ -29,14 +29,18 @@ public class FileUtil {
         // 이 파일을 날짜별로 관리하기 위해 날짜별 폴더를 생성
         String newUploadPath = makeDateFormatDirectory(rootPath);
 
+        // 파일의 풀 경로를 생성
+         String fullPath = newUploadPath + "/" + newFileName;
+
         // 파일 업로드 수행
         try {
             file.transferTo(new File(newUploadPath, newFileName));
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        return "";
+        // full-path : D:/abc/upload/2024/01/02/asdklakg-asmksdMGk-sadgnkSDN고냥이.jpg
+        // return-path:
+        return fullPath.substring(rootPath.length());
     }
 
     /**

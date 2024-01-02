@@ -58,7 +58,7 @@
 
 
           <form action="/members/sign-up" name="signup" id="signUpForm" method="post"
-                style="margin-bottom: 0;">
+                style="margin-bottom: 0;" enctype="multipart/form-data">
 
             <div class="profile">
               <div class="thumbnail-box">
