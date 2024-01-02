@@ -9,6 +9,19 @@
         <img src="/assets/img/logo.png" alt="로고이미지">
       </a>
     </h1>
+
+    <!-- 프로필 사진 -->
+    <div class="profile-box">
+
+      <c:if test="${login == null || login.profile == null}">
+        <img src="/assets/img/anonymous.jpg" alt="프사">
+      </c:if>
+
+      <c:if test="${login != null && login.profile != null}">
+        <img src="/local${login.profile}" alt="프사">
+      </c:if>
+    </div>
+
     <h2 class="intro-text">
       Welcome ${login == null ? '' : login.nickName}
     </h2>
