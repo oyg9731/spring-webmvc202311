@@ -32,9 +32,11 @@
 
     <select id="findAll" resultType="reply">
         SELECT
-            reply_no, reply_text, reply_writer
-            , reply_date, board_no, account
-        FROM tbl_reply
+            A.reply_no, A.reply_text, A.reply_writer
+            , A.reply_date, A.board_no, A.account, B.profile_image
+        FROM tbl_reply A
+        LEFT OUTER JOIN tbl_member B
+        ON A.account = B.account
         WHERE board_no = #{bn}
         ORDER BY reply_no
         LIMIT #{p.pageStart}, #{p.amount}

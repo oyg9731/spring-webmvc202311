@@ -5,7 +5,9 @@
 <mapper namespace="com.spring.mvc.chap05.repository.BoardMapper">
 
     <select id="findAll" resultType="board">
-        SELECT * FROM tbl_board
+        SELECT
+        *
+        FROM tbl_board
 
         <if test="type == 'title'">
             WHERE title LIKE CONCAT('%', #{keyword}, '%')
@@ -15,7 +17,7 @@
         </if>
         <if test="type == 'tc'">
             WHERE title LIKE CONCAT('%', #{keyword}, '%')
-             OR content LIKE CONCAT('%', #{keyword}, '%')
+            OR content LIKE CONCAT('%', #{keyword}, '%')
         </if>
 
         ORDER BY board_no DESC
@@ -24,11 +26,11 @@
 
     <select id="findOne" resultType="board">
         SELECT
-            B.board_no, B.title
-            , B.content, B.view_count
-            ,B.reg_date_time, B.account
-            , M.name AS writer
-        FROM tbl_board 8
+        B.board_no, B.title
+        , B.content, B.view_count
+        , B.reg_date_time, B.account
+        , M.name AS writer
+        FROM tbl_board B
         JOIN tbl_member M
         ON B.account = M.account
         WHERE board_no = #{boardNo}
@@ -36,9 +38,9 @@
 
     <insert id="save">
         INSERT INTO tbl_board
-         (title, content, account)
+        (title, content, account)
         VALUES
-         (#{title}, #{content}, #{account})
+        (#{title}, #{content}, #{account})
     </insert>
 
     <delete id="deleteByNo">
