@@ -139,7 +139,8 @@
                 </td>
               </tr>
               <tr>
-                <td><input type="email" name="email" id="user_email"
+                <td>
+                  <input type="email" name="email" id="user_email"
                            class="form-control tooltipstered" required="required" aria-required="true"
                            style="margin-bottom: 25px; width: 100%; height: 40px; border: 1px solid #d9d9de"
                            placeholder="ex) abc@mvc.com"></td>
@@ -376,20 +377,18 @@
     $fileInput.click();
   };
 
-  // 프로필 사진 선택시 썸네일 보여주기
   $fileInput.onchange = e => {
-    // 사용자가 첨부한 파일 데이터 읽기
+
     const fileData = $fileInput.files[0];
     console.log(fileData);
 
-    // 첨부파일의 바이트데이터를 읽는 객체를 생성
+
     const reader = new FileReader();
 
-    // 파일의 바이트데이터를 읽어서 img태그의 src속성에 넣으려면
-    // URL형태로 파일을 읽어야하는데 그거를 처리하는 함수
+
     reader.readAsDataURL(fileData);
 
-    // 첨부파일이 등록되는 순간 img태그에 이미지를 세팅
+
     reader.onloadend = e => {
       const $img = document.querySelector('.thumbnail-box img');
       $img.setAttribute('src', reader.result);
