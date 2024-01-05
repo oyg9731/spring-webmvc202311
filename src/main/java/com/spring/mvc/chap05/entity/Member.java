@@ -34,4 +34,9 @@ public class Member {
     private LocalDateTime limitTime;
     @Setter
     private String profileImage; // 프로필 사진 이미지 경로
+    private LoginMethod loginMethod;// 로그인 방법(kakao, naver, google ...)
+
+    public enum LoginMethod{
+        COMMON, KAKAO, GOOGLE, NAVER
+    }
 }

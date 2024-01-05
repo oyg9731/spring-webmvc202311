@@ -18,7 +18,7 @@
       </c:if>
 
       <c:if test="${login != null && login.profile != null}">
-        <img src="/local${login.profile}" alt="프사">
+        <img src="${login.profile}" alt="프사">
       </c:if>
     </div>
 

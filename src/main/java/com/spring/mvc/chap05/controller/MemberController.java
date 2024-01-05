@@ -1,8 +1,9 @@
 package com.spring.mvc.chap05.controller;
 
-
 import com.spring.mvc.chap05.dto.request.LoginRequestDTO;
 import com.spring.mvc.chap05.dto.request.SignUpRequestDTO;
+import com.spring.mvc.chap05.dto.response.LoginUserResponseDTO;
+import com.spring.mvc.chap05.entity.Member;
 import com.spring.mvc.chap05.service.LoginResult;
 import com.spring.mvc.chap05.service.MemberService;
 import com.spring.mvc.util.LoginUtils;
@@ -16,12 +17,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import static com.spring.mvc.util.LoginUtils.*;
 
 @Controller
@@ -62,6 +61,9 @@ public class MemberController {
         // 서버에 파일 업로드
         String savePath = FileUtil.uploadFile(dto.getProfileImage(), rootPath);
         log.debug("save-path: {}", savePath);
+
+        // 일반 방식으로 회원가입
+        dto.setLoginMethod(Member.LoginMethod.COMMON);
 
          boolean flag = memberService.join(dto, savePath);
         return flag ? "redirect:/board/list" : "redirect:/members/sign-up";
@@ -142,6 +144,12 @@ public class MemberController {
             if (isAutoLogin(request)) {
                 // 쿠키를 삭제해주고 디비데이터도 원래대로 돌려놓는다.
                 memberService.autoLoginClear(request, response);
+            }
+
+            // sns 로그인 상태인지 확인
+            LoginUserResponseDTO attribute = (LoginUserResponseDTO) session.getAttribute(LOGIN_KEY);
+            if (attribute.getLoginMethod().equals("KAKAO")) {
+                // 카카오 로그아웃 통신~~~~
             }
 
             // 세션에서 로그인 정보 기록 삭제

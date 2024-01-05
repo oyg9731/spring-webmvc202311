@@ -6,15 +6,15 @@
 
     <insert id="save">
         INSERT INTO tbl_member
-            (account, password, name, email, profile_image)
+            (account, password, name, email, profile_image, login_method)
         VALUES
-            (#{account}, #{password}, #{name}, #{email}, #{profileImage})
+            (#{account}, #{password}, #{name}, #{email}, #{profileImage}, #{loginMethod})
     </insert>
 
     <select id="findMember" resultType="member">
         SELECT
             account, password, name,
-            email, auth, reg_date, profile_image
+            email, auth, reg_date, profile_image, login_method
         FROM tbl_member
         WHERE account = #{account}
     </select>
